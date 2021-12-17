@@ -121,7 +121,7 @@ function checkAge(input) {
 }
 
 //add event listeners
-a = username.addEventListener('blur', function (e) {
+username.addEventListener('blur', function (e) {
   e.preventDefault();
   if (checkRequired([username]) == true) {
     checkUsername(username);
@@ -131,7 +131,7 @@ a = username.addEventListener('blur', function (e) {
   }
 });
 
-b = email.addEventListener('blur', function (e) {
+email.addEventListener('blur', function (e) {
   e.preventDefault();
   if (checkRequired([email]) == true) {
     checkEmail(email);
@@ -189,4 +189,24 @@ form.addEventListener('change', function (e) {
   } else {
     submitButton.disabled = false; //false = enable
   }
+});
+
+submitButton.addEventListener('click', function (e) {
+  e.preventDefault();
+  document.getElementById('submit').innerHTML = 'Loading...';
+  submitButton.disabled = true;
+  window.alert(
+    username.value +
+      ', ' +
+      email.value +
+      ', ' +
+      password.value +
+      ', ' +
+      nameUser.value +
+      ', ' +
+      age.value +
+      ', ' +
+      address.value
+  );
+  document.getElementById('main').style.display = 'none';
 });
