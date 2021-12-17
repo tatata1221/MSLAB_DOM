@@ -7,6 +7,7 @@ const nameUser = document.getElementById('name');
 const age = document.getElementById('age');
 const address = document.getElementById('address');
 const submitButton = document.getElementById('submit');
+const input = document.querySelector('input');
 
 //show input error message
 function showError(input, message) {
@@ -98,23 +99,29 @@ function checkLength(input, min, max) {
 
 //check password match
 function checkPasswordsMatch(input1, input2) {
+  let isPwMatch = true;
   if (input1.value !== input2.value) {
     // console.log(input1.value);
     showError(input2, 'Passwords do not match');
+    isPwMatch = false;
   }
+  return isPwMatch;
 }
 
 //check age 16-120
 function checkAge(input) {
+  let isAgeValid = true;
   if (input.value >= 16 && input.value <= 120) {
     showSuccess(input);
   } else {
     showError(input, 'Age is ranged about 16-120');
+    isAgeValid = false;
   }
+  return isAgeValid;
 }
 
 //add event listeners
-username.addEventListener('blur', function (e) {
+a = username.addEventListener('blur', function (e) {
   e.preventDefault();
   if (checkRequired([username]) == true) {
     checkUsername(username);
@@ -124,7 +131,7 @@ username.addEventListener('blur', function (e) {
   }
 });
 
-email.addEventListener('blur', function (e) {
+b = email.addEventListener('blur', function (e) {
   e.preventDefault();
   if (checkRequired([email]) == true) {
     checkEmail(email);
@@ -166,8 +173,20 @@ address.addEventListener('blur', function (e) {
 });
 
 //xu ly submit button
-if () {
-  submitButton.disabled = true;
-} else {
-  submitButton.disabled = false; //false = enable
-}
+form.addEventListener('change', function (e) {
+  e.preventDefault();
+  if (
+    checkEmail(email) == false ||
+    checkUsername(username) == false ||
+    checkLength(username, 6, 15) == false ||
+    checkLength(password, 8, 15) == false ||
+    checkPasswordsMatch(password, password2) == false ||
+    checkRequired([username, email, password, password2, nameUser, age, address]) == false ||
+    checkAge(age) == false ||
+    checkPassword(password) == false
+  ) {
+    submitButton.disabled = true;
+  } else {
+    submitButton.disabled = false; //false = enable
+  }
+});
